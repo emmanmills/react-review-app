@@ -21,7 +21,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-# Additional Packages installed
+# Additional Packages Installed
 
 1. react-router-dom
 2. prettier
