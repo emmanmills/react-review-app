@@ -9,7 +9,9 @@ export const reviewsSlice = createSlice({
   },
   reducers: {
     initAllReviews: (state, action) => {
-      state.value = action.payload;
+      if (!state.value.length) {
+        state.value = action.payload;
+      }
     },
     updateReply: (state, action) => {
       state.value.forEach((currentState) => {
@@ -17,7 +19,6 @@ export const reviewsSlice = createSlice({
           currentState.reply = action.payload;
         }
       });
-      return state;
     },
   },
 });

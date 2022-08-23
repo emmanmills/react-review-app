@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -6,13 +6,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ReviewCard from "../ReviewCard";
 
-const ReviewListPage = () => {
+const ReviewList = () => {
   const navigate = useNavigate();
   const reviews = useSelector((state) => state.reviews.value);
-
-  useEffect(() => {
-    const reviews = JSON.parse(localStorage.getItem("reviews"));
-  }, []);
 
   return (
     <Box component={"main"} p={3}>
@@ -38,4 +34,4 @@ const ReviewListPage = () => {
   );
 };
 
-export default ReviewListPage;
+export default ReviewList;

@@ -9,13 +9,14 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { getFormattedDateString } from "../../utils/dateFormatter";
+import ReplyIcon from "@mui/icons-material/Reply";
+import { getCardPadding, getFormattedDateString } from "../../utils/viewHelper";
 import ReplyForm from "../ReplyForm";
 
 const ITEM_HEIGHT = 48;
 
 const ReplyCard = (props) => {
-  const { reply } = props;
+  const { reply = {}, onUpdateHandler } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const open = Boolean(anchorEl);
@@ -35,8 +36,22 @@ const ReplyCard = (props) => {
   return (
     <>
       {!isEdit && (
-        <Card sx={{ mt: "2rem" }}>
+        <Card
+          data-testid="reply-card-component"
+          sx={{ mt: "2rem", ...getCardPadding(isSmallScreen) }}
+        >
+          <div style={{ position: "relative" }}>
+            <ReplyIcon
+              sx={{
+                position: "absolute",
+                top: "1.2rem",
+                left: "-1.5rem",
+                fontSize: "inherit",
+              }}
+            />
+          </div>
           <CardHeader
+            data-testid={"reply-card-header"}
             title={reply.content}
             action={
               <>
@@ -60,27 +75,32 @@ const ReplyCard = (props) => {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  <MenuItem onClick={handleClose}>{"Edit Reply"}</MenuItem>
+                  <MenuItem onClick={handleClose} data-testid="edit-reply">
+                    {"Edit Reply"}
+                  </MenuItem>
                 </Menu>
               </>
             }
             sx={{
-              "& .MuiCardHeader-title": { fontSize: "1rem" },
-              padding: isSmallScreen ? "1rem" : "2rem",
+              padding: "0.8rem 0",
+              "& .MuiCardHeader-title": {
+                fontSize: "1rem",
+              },
             }}
           />
           <CardContent
             sx={{
-              padding: isSmallScreen ? "1rem" : "2rem",
+              padding: "0.8rem 0",
+              display: "flex",
             }}
           >
             <Typography
               variant="body2"
-              sx={{ mb: 1.5 }}
+              sx={{ mb: 1.5, mr: isSmallScreen ? "0.5rem" : "1rem" }}
               aria-label="author"
               data-testid={`author`}
             >
-              {reply.author} {getFormattedDateString(reply.published_at)}
+              {reply.author}
             </Typography>
             <Typography
               variant="body2"
@@ -88,11 +108,19 @@ const ReplyCard = (props) => {
               color="text.secondary"
               aria-label="publish date"
               data-testid="publish-date"
-            ></Typography>
+            >
+              {getFormattedDateString(reply.published_at)}
+            </Typography>
           </CardContent>
         </Card>
       )}
-      {isEdit && <ReplyForm reviewId={reply.id} replyData={reply} />}
+      {isEdit && (
+        <ReplyForm
+          reviewId={reply.id}
+          replyData={reply}
+          onUpdateHandler={onUpdateHandler}
+        />
+      )}
     </>
   );
 };

@@ -5,7 +5,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
-import { truncateStr } from "../../utils/dateFormatter";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import Rating from "@mui/material/Rating";
+import { truncateStr, getCardPadding } from "../../utils/viewHelper";
 
 const ReviewCard = (props) => {
   const { data, truncateContent = true, index = 0 } = props;
@@ -16,12 +18,8 @@ const ReviewCard = (props) => {
 
   return (
     <>
-      <Card>
-        <CardContent
-          sx={{
-            padding: isSmallScreen ? "1rem" : "2rem",
-          }}
-        >
+      <Card data-testid="review-card">
+        <CardContent sx={getCardPadding(isSmallScreen)}>
           {data?.place && (
             <Typography variant="h6" component="h3" aria-label="review place">
               {data.place}
@@ -34,7 +32,11 @@ const ReviewCard = (props) => {
               color="text.secondary"
               aria-label="review rating"
             >
-              {data.rating}
+              <Rating
+                readOnly={true}
+                name="review-rating"
+                value={data.rating}
+              />
             </Typography>
           )}
 
@@ -50,17 +52,13 @@ const ReviewCard = (props) => {
             </Typography>
           )}
         </CardContent>
-        <CardActions
-          sx={{
-            padding: isSmallScreen ? "1rem" : "2rem",
-          }}
-        >
+        <CardActions sx={getCardPadding(isSmallScreen)}>
           {data?.author && (
             <Typography
               variant="body2"
-              sx={{ mb: 1.5 }}
               aria-label="author"
               data-testid={`author-${index}`}
+              sx={{ mr: isSmallScreen ? "" : "1rem" }}
             >
               {data.author}
             </Typography>
@@ -69,14 +67,16 @@ const ReviewCard = (props) => {
           {data?.published_at && (
             <Typography
               variant="body2"
-              sx={{ mb: 1.5 }}
               color="text.secondary"
               aria-label="publish date"
               data-testid="publish-date"
+              sx={{ flex: "auto" }}
             >
               {data.published_at}
             </Typography>
           )}
+
+          {data?.reply && <QuestionAnswerIcon sx={{ fontSize: "inherit" }} />}
         </CardActions>
       </Card>
     </>

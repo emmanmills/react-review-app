@@ -1,4 +1,5 @@
-# Extra packages installed
+# Packages installed
+
 1. react-router-dom
 2. prettier
 3. @mui/material 
@@ -13,3 +14,4 @@
 12. @reduxjs/toolkit
 13. @redux-devtools/core
 14. redux-persist
+15. sass

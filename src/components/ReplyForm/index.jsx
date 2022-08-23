@@ -44,7 +44,7 @@ const ReplyForm = (props) => {
   }
 
   return (
-    <>
+    <div data-testid="reply-form">
       <Box sx={{ mt: 4 }}>
         {!replyData.author && (
           <TextField
@@ -53,6 +53,7 @@ const ReplyForm = (props) => {
             id="reply-name"
             label="Enter your name"
             sx={{ width: "100%", mb: "1rem", maxWidth: "400px" }}
+            inputProps={{ "aria-label": "reply-name" }}
             onChange={(e) => setName(e.target.value.trim())}
             onBlur={(e) =>
               !e.target.value.trim()
@@ -72,6 +73,7 @@ const ReplyForm = (props) => {
             inputComponent: TextareaAutosize,
           }}
           sx={{ width: "100%", mb: "1rem" }}
+          inputProps={{ "aria-label": "reply-text" }}
           onChange={(e) => setReply(e.target.value.trim())}
           onBlur={(e) =>
             !e.target.value.trim()
@@ -87,7 +89,7 @@ const ReplyForm = (props) => {
           Submit Reply
         </Button>
       </Box>
-    </>
+    </div>
   );
 };
 

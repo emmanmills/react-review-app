@@ -14,7 +14,7 @@ const ReviewDetailsPage = () => {
   const [reply, setReply] = useState("");
   const { id } = useParams();
   const review = useSelector((state) => state.reviews.value).filter(
-    (r) => r.id === id
+    (r) => r?.id === id
   )[0];
 
   function onReplyHandler() {
@@ -22,21 +22,22 @@ const ReviewDetailsPage = () => {
   }
 
   function onUpdateHandler(updatedReply) {
-    console.log("handler", updatedReply);
     setReply(updatedReply);
   }
 
   useEffect(() => {
-    setReply(review.reply);
-  }, [review.reply]);
+    if (review && review.reply) {
+      setReply(review.reply);
+    }
+  }, [review]);
 
   return (
     <>
-      <Box component={"main"} p={3}>
+      <Box component={"main"} p={3} data-testid="review-detail-page">
         <Grid item xs={12}>
           <ReviewCard data={review} truncate={false} />
         </Grid>
-        {!showTextBox && !review.reply && (
+        {!showTextBox && !review?.reply && (
           <Box sx={{ "& button": { mt: 4 } }}>
             <Button
               variant="contained"
@@ -47,11 +48,12 @@ const ReviewDetailsPage = () => {
             </Button>
           </Box>
         )}
-        {console.log("updatedReply", reply)}
-        {showTextBox && !review.reply && (
+        {showTextBox && !reply && (
           <ReplyForm reviewId={id} onUpdateHandler={onUpdateHandler} />
         )}
-        {reply && <ReplyCard reply={review.reply} />}
+        {reply?.id && (
+          <ReplyCard reply={review?.reply} onUpdateHandler={onUpdateHandler} />
+        )}
       </Box>
     </>
   );

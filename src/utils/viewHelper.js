@@ -13,3 +13,7 @@ export function truncateStr(str, max = 300) {
 export function getFormattedDateString(dateStr) {
   return moment(new Date(dateStr)).format("L");
 }
+
+export function getCardPadding(isSmallScreen) {
+  return isSmallScreen ? { padding: "1rem 2rem" } : { padding: "2rem 3rem" };
+}

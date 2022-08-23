@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { getFormattedDateString } from "./dateFormatter";
+import { getFormattedDateString } from "./viewHelper";
 
 export const sampleData = [
   {
@@ -11,7 +11,7 @@ export const sampleData = [
     ),
     rating: 5,
     content: "So good!",
-    reply: "Thank you!",
+    reply: null,
   },
   {
     id: "345",
@@ -25,6 +25,15 @@ export const sampleData = [
     reply: "Oh no!",
   },
 ];
+
+export const sampleReply = {
+  id: "765",
+  author: "Snoopy Twinkle",
+  published_at: getFormattedDateString(
+    "Fri Oct 06 1995 21:08:47 GMT-0500 (Central Daylight Time)"
+  ),
+  content: "A sample reply",
+};
 
 export function createMockStore(mockData) {
   const data = [mockData] || [sampleData[0]];

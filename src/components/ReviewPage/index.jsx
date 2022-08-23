@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import ReviewListPage from "../ReviewListPage";
+import ReviewList from "../ReviewList";
 import { useDispatch } from "react-redux";
 import { initAllReviews } from "../../redux/features/reviews";
-import { getFormattedDateString } from "../../utils/dateFormatter";
+import { getFormattedDateString } from "../../utils/viewHelper";
 
 const ReviewPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,6 @@ const ReviewPage = () => {
           };
         });
         dispatch(initAllReviews(transformed));
-        localStorage.setItem("reviews", JSON.stringify(transformed));
       })
       .catch((err) => {
         console.log(`Cannot fetch review data with error: ${err}`);
@@ -33,7 +32,7 @@ const ReviewPage = () => {
 
   return (
     <>
-      <ReviewListPage />
+      <ReviewList />
     </>
   );
 };
