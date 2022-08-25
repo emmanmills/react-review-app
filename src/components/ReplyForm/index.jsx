@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { updateReply } from "../../redux/features/reviews";
 
 const ReplyForm = (props) => {
-  const { reviewId, replyData = {}, onUpdateHandler = null } = props;
+  const { reviewId, replyData = {}, onUpdateHandler = null, onCancelHandler = null } = props;
   const [name, setName] = useState("");
   const [reply, setReply] = useState("");
   const [hasNameError, setHasNameError] = useState(false);
@@ -87,6 +87,14 @@ const ReplyForm = (props) => {
           aria-label="submit reply"
         >
           Submit Reply
+        </Button>
+
+        <Button
+          variant="contained"
+          onClick={onCancelHandler}
+          aria-label="submit reply"
+        >
+          Cancel
         </Button>
       </Box>
     </div>

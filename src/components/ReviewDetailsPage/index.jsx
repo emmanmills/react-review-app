@@ -25,6 +25,10 @@ const ReviewDetailsPage = () => {
     setReply(updatedReply);
   }
 
+  const onCancelHandler = () => {
+    setShowTextBox(false);
+  }
+
   useEffect(() => {
     if (review && review.reply) {
       setReply(review.reply);
@@ -49,7 +53,7 @@ const ReviewDetailsPage = () => {
           </Box>
         )}
         {showTextBox && !reply && (
-          <ReplyForm reviewId={id} onUpdateHandler={onUpdateHandler} />
+          <ReplyForm reviewId={id} onUpdateHandler={onUpdateHandler} onCancelHandler={onCancelHandler} />
         )}
         {reply?.id && (
           <ReplyCard reply={review?.reply} onUpdateHandler={onUpdateHandler} />

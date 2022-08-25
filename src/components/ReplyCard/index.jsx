@@ -33,6 +33,10 @@ const ReplyCard = (props) => {
     setAnchorEl(null);
   };
 
+  const onCancelHandler = () => {
+    setIsEdit(false);
+  }
+
   return (
     <>
       {!isEdit && (
@@ -119,6 +123,7 @@ const ReplyCard = (props) => {
           reviewId={reply.id}
           replyData={reply}
           onUpdateHandler={onUpdateHandler}
+          onCancelHandler={onCancelHandler}
         />
       )}
     </>
